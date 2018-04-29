@@ -1,0 +1,32 @@
+extends layout
+
+block content
+  .d-flex.justify-content-center
+    form(action="/sell" method="post" enctype="multipart/form-data")
+      h4 Sell
+      br
+      if flashMsg.length > 0
+        .alert.alert-danger <strong></strong>#{flashMsg}
+      div.form-group
+        label(for='id_name') Title :
+        input#id_name.form-control(type='text', placeholder='Title' name='title')
+      div.form-group
+        label(for='id_author') Author:
+        input#id_author.form-control(type='text', placeholder='Author' name='author')
+      div.form-group
+        label(for='id_isbn') ISBN:
+        input#id_isbn.form-control(type='text', placeholder='ISBN' name='isbn')
+      div.form-group
+        label(for='condition') Condition:
+        select#id_condition.form-control(name='condition')
+            each cond, i in conditions
+                option(value=i) #{cond}
+      div.form-group
+        label(for='id_image') Image:
+        input#id_image.form-control(type='file', name='image')
+      br
+      button.btn.btn-primary(type='submit') Submit
+      br
+      br
+      div
+         a(href="/buy") Buy

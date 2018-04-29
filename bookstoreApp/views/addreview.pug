@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    form(action="/buy/"+book._id method="post" )
+      .row
+        .col-sm-3
+          img(src=book.imgurl, width=100, height=150)
+          div
+            label Title    : #{book.title}
+          div
+            label Author   : #{book.author}
+          div
+            label ISBN     : #{book.isbn}
+          div
+            textarea#id_review.form-control(name='review', rows=5)
+          br
+          button.btn.btn-primary(type='submit') Submit Review

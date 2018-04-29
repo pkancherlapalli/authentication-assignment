@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  .d-flex.justify-content-center
+    form(action="/" method="post")
+      p Welcome to #{title}
+      br
+      if flashMsg.length > 0
+        .alert.alert-danger <strong></strong>#{flashMsg}
+      div.form-group
+          label(for='login_name') UserName :
+          input#login_name.form-control(type='text', placeholder='UserName' name='username')
+      div.form-group
+          label(for='login_pwd') Password:
+          input#login_pwd.form-control(type='password', placeholder='Password' name='password')
+      button.btn.btn-primary(type='submit') Submit
+      br
+      br
+      div
+        a(href="/register") Register

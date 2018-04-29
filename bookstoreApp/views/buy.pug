@@ -1,0 +1,32 @@
+extends layout
+block content
+  h4 Books
+     .row
+       for book in books
+          div.col-sm-3(id = book._id)
+               img(src=book.imgurl, width=100, height=150)
+               div
+                 label Title    : #{book.title}
+               div
+                 label Author   : #{book.author}
+               div
+                 label ISBN     : #{book.isbn}
+               div
+                 label Condition: #{book.condition}
+               div
+                 a(href="/buy/" + book._id +"/details?add_rev=1") Add Review
+               div
+                 a(href="/buy/" + book._id +"/details?add_rev=0") Show Reviews
+               br
+               mixin addButton(elmid, name)
+                  div
+                  button.btn.btn-primary(id = elmid, type='submit', onclick="OnRemove(this.id)")=name
+
+               +addButton('delete_'+ book._id, "Remove")
+
+       else
+         p sorry, no books!
+  br
+  a(href="/sell") Sell
+
+  script(src="static/js/listener.js", type ="text/javascript")

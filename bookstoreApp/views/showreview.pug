@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  .row
+    .col-sm-3
+      img(src=book.imgurl, width=100, height=150)
+      div
+        label Title    : #{book.title}
+      div
+        label Author   : #{book.author}
+      div
+        label ISBN     : #{book.isbn}
+      div.form-group
+        ul.list-group
+           for review in book.reviews
+              li.list-group-item
+                p #{review}
+
+  br
+  br
+  div
+    a(href="/buy") Buy
