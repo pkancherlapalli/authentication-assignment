@@ -7,25 +7,16 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 //routers
 var index = require('./routes/index');
 var register = require('./routes/register');
 var buy = require('./routes/buy');
 var sell = require('./routes/sell');
-//var api = require('./routes/api/api-router');
 require('dotenv').config();
 
 var app = express();
-
-//mongoose connection to mongodb atlas
-mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PWD}@cluster0-shard-00-00-fplwu.mongodb.net:27017,cluster0-shard-00-01-fplwu.mongodb.net:27017,cluster0-shard-00-02-fplwu.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin`);
-var db = mongoose.connection;
-db.on('error', (err)=>{ console.error(`connection error:${err}`); });
-console.log("connected!");
-
-//setup the configuration for passport
-require('./config/passport');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -41,6 +32,19 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+//passport config
+var User = require('./models/user');
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+//require('./config/passport')(passport);
+
+//mongoose connection to mongodb atlas
+mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PWD}@cluster0-shard-00-00-fplwu.mongodb.net:27017,cluster0-shard-00-01-fplwu.mongodb.net:27017,cluster0-shard-00-02-fplwu.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin`);
+var db = mongoose.connection;
+db.on('error', (err)=>{ console.error(`connection error:${err}`); });
+console.log("connected!");
 
 app.use(logger('dev'));
 app.use(bodyParser.json());

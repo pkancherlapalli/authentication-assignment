@@ -5,8 +5,7 @@ block content
     form(action="/" method="post")
       p Welcome to #{title}
       br
-      if flashMsg.length > 0
-        .alert.alert-danger <strong></strong>#{flashMsg}
+     
       div.form-group
           label(for='login_name') UserName :
           input#login_name.form-control(type='text', placeholder='UserName' name='username')
