@@ -3,7 +3,7 @@ USER AUTHENTICATION USING PASSPORT
 Passport is an authentication middleware for Node. It is extremely flexible, modular and designed to authenticate requests. Passport allows us to employ different strategies for authentication based on the needs of the application. This write up is concerned with local strategy that is used to authenticate users to the web application.
 
 BIBILOGRAPHY:
-Salt: A salt is randomly generated for each password. In a typical setting, the salt and the password are concatenated and processed with a cryptographic hash function, and the resulting output (but not the original password) is stored with the salt in a database. Hashing allows for later authentication without keeping and therefore risking the plaintext password in the event that the authentication data store is compromised.
+Salt: Salt is a randonly generated data. In the case of authentication a salt is randomly generated for each password. In a typical setting, the salt and the password are concatenated and processed with a cryptographic hash function, and the resulting output (but not the original password) is stored with the salt in a database. Hashing allows for later authentication without keeping and therefore risking the plaintext password in the event that the authentication data store is compromised.
 
 Hashing : Technique similar to hash table data structure except the hash function is hard to guess. Hash value of password along with salt is stored in databse.
 
