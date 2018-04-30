@@ -10,14 +10,23 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Online Book Store'/* ,flashMsg : req.flash('loginerr') */});
 });
 
-router.post('/', passport.authenticate('local'), function(req, res) {
-  res.redirect('/buy');
+/* POST home page */
+router.post('/', function(req, res, next){
+  User.authenticate()(req.body.username, req.body.password, function (err, user, options) {
+        if (err) return next(err);
+        if (user === false) {
+           res.redirect('/');
+        } else {
+            req.login(user, function (err) {
+               if (err) {
+                 res.redirect('/');
+               } else {
+                 res.redirect('/buy');
+               }
+            });
+        }
+    });
+  
 });
 
-/*
-router.post('/', function(req, res, next) {
-  passport.authenticate('login', { successRedirect: '/buy',
-                                   failureRedirect: '/'}, null);
-});
-*/
 module.exports = router;
