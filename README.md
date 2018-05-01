@@ -70,15 +70,15 @@ automatically generate the salt and hash for the password used
 
 router.post('/', function(req, res) {
 
-  User.register(new User({ username : req.body.username }), req.body.password, function(err, user) { 
+    User.register(new User({ username : req.body.username }), req.body.password, function(err, user) { 
   
-      if (err) {
-          return res.render('register', { user : user });
-      }
+          if (err) {
+              return res.render('register', { user : user });
+          }
 
-      passport.authenticate('local')(req, res, function () {
-          res.redirect('/buy');
-      });
+          passport.authenticate('local')(req, res, function () {
+              res.redirect('/buy');
+          });
   });
 });
 
@@ -91,22 +91,22 @@ Passport also exposes a login() function on req (also aliased as logIn()) that c
 
 router.post('/', function(req, res, next){
 
-  User.authenticate()(req.body.username, req.body.password, function (err, user, options) {
+    User.authenticate()(req.body.username, req.body.password, function (err, user, options) {
   
-        if (err) return next(err);
-        
-        if (user === false) {
-           res.redirect('/');
-        } else {
-            req.login(user, function (err) {
-            
-               if (err) {
-                 res.redirect('/');
-               } else {
-                 res.redirect('/buy');
-               }
-            });
-        }
+            if (err) return next(err);
+
+            if (user === false) {
+               res.redirect('/');
+            } else {
+                req.login(user, function (err) {
+
+                   if (err) {
+                     res.redirect('/');
+                   } else {
+                     res.redirect('/buy');
+                   }
+                });
+            }
     });
   
 });
