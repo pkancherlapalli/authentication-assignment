@@ -32,15 +32,19 @@ Following steps have to be done to use the passport module.
 INITIALIZED:
 To use the passport module, need to do the following in app.js after the session middleware is setup
 app.use(passport.initialize());
+
 app.use(passport.session());
 
 SETUP:
 Following is how we need to set up the user model to be used by passport.
 var passportLocalMongoose = require('passport-local-mongoose');
+
 var userSchema = new Schema({
+
     username: {type: String, required:true},
-    password: {type:String},  
+    password: {type:String}  
 });
+
 userSchema.plugin(passportLocalMongoose);
 
 The plugin method provided by passport-local-mongoose takes care of encrypting the password and 
@@ -65,7 +69,9 @@ register() is a static method provided by the module to create the new user in t
 automatically generate the salt and hash for the password used 
 
 router.post('/', function(req, res) {
+
   User.register(new User({ username : req.body.username }), req.body.password, function(err, user) { 
+  
       if (err) {
           return res.render('register', { user : user });
       }
@@ -84,12 +90,16 @@ This takes in username and password typed in by user and generates the hash of i
 Passport also exposes a login() function on req (also aliased as logIn()) that can be used to establish a login session.
 
 router.post('/', function(req, res, next){
+
   User.authenticate()(req.body.username, req.body.password, function (err, user, options) {
+  
         if (err) return next(err);
+        
         if (user === false) {
            res.redirect('/');
         } else {
             req.login(user, function (err) {
+            
                if (err) {
                  res.redirect('/');
                } else {
