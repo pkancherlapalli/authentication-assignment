@@ -110,3 +110,8 @@ router.post('/', function(req, res, next){
     });
   
 });
+
+References:
+https://www.npmjs.com/package/passport-local-mongoose
+
+http://www.passportjs.org/
